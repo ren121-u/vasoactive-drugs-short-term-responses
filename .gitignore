@@ -1,6 +1,7 @@
 # ---------------------------------------------------------------
-# 個票データ・中間データは公開リポジトリに絶対に入れない
-# （一度コミットすると、後で削除しても履歴から復元できてしまう）
+# Individual patient data and intermediate data files must never be
+# committed to this repository: once committed, they remain
+# recoverable from the history even after they are deleted.
 # ---------------------------------------------------------------
 data/
 *.csv
@@ -13,7 +14,7 @@ data/
 .RData
 .RDataTmp
 
-# 解析の出力（図表）
+# Analysis output (figures and tables)
 output/
 *.png
 *.pdf
@@ -21,7 +22,7 @@ output/
 *.jpg
 *.jpeg
 
-# 認証情報
+# Credentials
 *.json.key
 *credentials*
 *service-account*
