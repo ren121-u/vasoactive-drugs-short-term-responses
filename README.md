@@ -23,14 +23,9 @@ The Vasoactive-Drugs-Short-Term-Responses repository includes:
 2. Python code to apply a low-pass filter to the extracted hemodynamic time series.
 3. R scripts to fit generalized additive models, run bootstrap resampling, and generate the figures and the baseline characteristics table.
 
-The study population consists of patients admitted to 17 ICUs in Japan after cardiac surgery between February 2013 and December 2025, who received a continuous infusion of a vasoactive drug. Patients treated with ECMO or Impella, patients younger than 15 years, and patients without a recorded age or sex are excluded. Eight hemodynamic outcomes are analyzed: MAP, DBP, HR, CVP, PAP, MAP-CVP, CO, and SVR.
+The study population consists of patients admitted to 17 ICUs in Japan after cardiac surgery between February 2013 and December 2025, who received a continuous infusion of a vasoactive drug. Patients treated with ECMO or Impella, patients younger than 15 years, and patients without a recorded age or sex are excluded. Eight hemodynamic outcomes are analyzed: MAP, DBP, HR, CVP, mPAP, mPP(MAP-CVP), CO, and SVR.
 
 By running these scripts, researchers can reproduce the analysis of short-term hemodynamic trajectories across vasoactive drugs, starting infusion rates, and patient subgroups.
-
-<!--
-TODO (to be completed before making this repository public):
-- Citation of the corresponding article, once accepted
--->
 
 ---
 ## Repository Structure
@@ -63,7 +58,7 @@ SQL scripts to extract the study population, hemodynamic measurements, and covar
 | `02_static_variables.sql` | Baseline patient characteristics |
 | `03_vasoactive_drug_rate.sql` – `08_gamma_from_bodyweight.sql` | Time-fixed covariates (infusion rate, mechanical ventilation, blood gas, vital signs, renal replacement therapy, and the infusion rate per body weight) |
 | `09_join_covariates.sql` | Joining of the covariates into a single table |
-| `10_map.sql` – `17_dbp.sql` | Hemodynamic measurements for each outcome (MAP, PAP, CVP, MAP-CVP, CO, SVR, HR, DBP) |
+| `10_map.sql` – `17_dbp.sql` | Hemodynamic measurements for each outcome (MAP, mPAP, CVP, mPP, CO, SVR, HR, DBP) |
 
 ### `python_scripts`
 `lowpass_filter` contains one Jupyter notebook per outcome. Each notebook applies a Butterworth low-pass filter to the extracted time series and writes the filtered data used by the R scripts.

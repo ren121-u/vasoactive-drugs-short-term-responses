@@ -59,6 +59,5 @@ rsconnect/
 .venv/
 __pycache__/
 
-# Jupyter checkpoints: these keep a copy of the notebook including its
-# execution outputs, which must not be committed to this repository
+# Jupyter checkpoints
 .ipynb_checkpoints/
