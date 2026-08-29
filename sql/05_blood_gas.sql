@@ -8,7 +8,7 @@ with
             time as measurement_time,
             main_start_time,
         from `medicu-beta.latest_one_icu.blood_gas`
-        inner join `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate` using (icu_stay_id)
+        inner join `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate` using (icu_stay_id)
         where
             field_name in ('ph', 'bicarbonate', 'base_excess', 'pco2', 'lactate')
             and sample_type = "arterial_blood_gas"
@@ -149,7 +149,7 @@ with
             coalesce(base_excess_pre, base_excess_after) as base_excess,
             coalesce(pco2_pre, pco2_after) as pco2,
             coalesce(lactate_pre, lactate_after) as lactate
-        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate` 
+        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate` 
         left join 
             ph_pre_tab using (icu_stay_id, active_ingredient_name)
         left join

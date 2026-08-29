@@ -12,7 +12,7 @@ with
                 else 0
             end as on_rrt,
         from
-           `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate`
+           `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate`
         left join
             `medicu-beta.latest_one_icu.renal_replacement_therapy` using (icu_stay_id)
     ),

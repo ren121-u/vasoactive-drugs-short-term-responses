@@ -13,6 +13,7 @@ library(progressr)
 library(dplyr)
 library(tidyr)
 
+# Adjust the number of workers to the cores available on your machine
 plan(multisession, workers = 32)
 handlers("progress")
 set.seed(123)

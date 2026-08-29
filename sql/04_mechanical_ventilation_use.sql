@@ -11,7 +11,7 @@ with
                 then 1
                 else 0
             end as on_vent,
-        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate`
+        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate`
         left join `medicu-beta.latest_one_icu.mechanical_ventilations` using (icu_stay_id)
     ),
     mv_use_max as (

@@ -9,7 +9,7 @@ with
             invasive_mbp as map,
             time,
         from `medicu-beta.latest_one_icu.vital_measurements`
-        inner join `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate` using (icu_stay_id)
+        inner join `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate` using (icu_stay_id)
     ),
     -- Calculate the median HR and MAP over the 10 minutes before drug initiation
     median_values_pre as (

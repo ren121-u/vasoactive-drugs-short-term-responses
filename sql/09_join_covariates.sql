@@ -21,24 +21,24 @@ with
             gamma,
             on_vent,
             on_rrt,
-        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate`
+        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate`
         left join
             `medicu-production.research_vasoactive_drugs_short_term_responses_2025.02_static_variables`
             using (icu_stay_id)
         left join
-            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.102_time_fixed_mv_use`
+            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.04_mechanical_ventilation_use`
             using (icu_stay_id, active_ingredient_name)
         left join
-            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.103_time_fixed_blood_gas`
+            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.05_blood_gas`
             using (icu_stay_id, active_ingredient_name)
         left join
-            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.104_time_fixed_vital_sign`
+            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.06_vital_sign`
             using (icu_stay_id, active_ingredient_name)
         left join
-            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.105_time_fixed_rrt_use`
+            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.07_renal_replacement_therapy_use`
             using (icu_stay_id, active_ingredient_name)
         left join
-            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.106_bodyweight`
+            `medicu-production.research_vasoactive_drugs_short_term_responses_2025.08_gamma_from_bodyweight`
             using (icu_stay_id, active_ingredient_name)
     )
 

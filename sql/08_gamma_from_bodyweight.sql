@@ -18,7 +18,7 @@ with
             icu_stay_id,
             active_ingredient_name,
             1000*first_drug_rate / (body_weight * 60) as gamma,
-        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.101_time_fixed_vasoactive_drug_rate`
+        from `medicu-production.research_vasoactive_drugs_short_term_responses_2025.03_vasoactive_drug_rate`
         inner join bodyweight_table using (icu_stay_id)
     ) 
 

@@ -41,41 +41,43 @@ Vasoactive-Drugs-Short-Term-Responses
 ├── sql
 │   ├── 01_eligibility_criteria.sql
 │   ├── 02_static_variables.sql
-│   ├── 31_map.sql ... 38_dbp.sql
-│   ├── 101_time_fixed_vasoactive_drug_rate.sql ... 106_bodyweight.sql
-│   └── 199_join_time_fixed_covariates.sql
+│   ├── 03_vasoactive_drug_rate.sql ... 08_gamma_from_bodyweight.sql
+│   ├── 09_join_covariates.sql
+│   └── 10_map.sql ... 17_dbp.sql
 ├── python_scripts
 │   └── lowpass_filter
 └── R_scripts
-    ├── gam_comparing_by_drug
-    ├── gam_comparing_by_dose
-    ├── bootstrap
-    ├── gamma_hist
-    └── table_one.R
+    ├── 01_gam_comparing_by_drug
+    ├── 02_bootstrap
+    ├── 03_gam_comparing_by_dose
+    ├── 04_infusion_rate_histogram
+    └── 05_table_one.R
 ```
 
 ### `sql`
-SQL scripts to extract the study population, hemodynamic measurements, and covariates from the OneICU database in Google BigQuery. The numbering indicates the order of execution.
+SQL scripts to extract the study population, hemodynamic measurements, and covariates from the OneICU database in Google BigQuery. The numbering indicates the order of execution: each script refers to the tables created by the scripts before it.
 
 | Script | Contents |
 | --- | --- |
 | `01_eligibility_criteria.sql` | Application of the inclusion and exclusion criteria |
 | `02_static_variables.sql` | Baseline patient characteristics |
-| `31_map.sql` – `38_dbp.sql` | Hemodynamic measurements for each outcome (MAP, PAP, CVP, MAP-CVP, CO, SVR, HR, DBP) |
-| `101_` – `106_` | Time-fixed covariates (infusion rate, mechanical ventilation, blood gas, vital signs, renal replacement therapy, body weight) |
-| `199_join_time_fixed_covariates.sql` | Joining of the time-fixed covariates into a single table |
+| `03_vasoactive_drug_rate.sql` – `08_gamma_from_bodyweight.sql` | Time-fixed covariates (infusion rate, mechanical ventilation, blood gas, vital signs, renal replacement therapy, and the infusion rate per body weight) |
+| `09_join_covariates.sql` | Joining of the covariates into a single table |
+| `10_map.sql` – `17_dbp.sql` | Hemodynamic measurements for each outcome (MAP, PAP, CVP, MAP-CVP, CO, SVR, HR, DBP) |
 
 ### `python_scripts`
 `lowpass_filter` contains one Jupyter notebook per outcome. Each notebook applies a Butterworth low-pass filter to the extracted time series and writes the filtered data used by the R scripts.
 
 ### `R_scripts`
+Each directory contains one script per outcome, except for `04_infusion_rate_histogram`, which contains one script per drug. The scripts are numbered for reference and do not depend on one another: each of them reads the exported data directly.
+
 | Directory / file | Contents |
 | --- | --- |
-| `gam_comparing_by_drug` | Generalized additive models comparing the trajectories across vasoactive drugs |
-| `gam_comparing_by_dose` | Generalized additive models comparing the trajectories across starting infusion rates |
-| `bootstrap` | Bootstrap resampling at the patient level for the confidence intervals |
-| `gamma_hist` | Histograms of the starting infusion rate for each drug |
-| `table_one.R` | Baseline characteristics table |
+| `01_gam_comparing_by_drug` | Generalized additive models comparing the trajectories across vasoactive drugs |
+| `02_bootstrap` | Bootstrap resampling at the patient level for the confidence intervals |
+| `03_gam_comparing_by_dose` | Generalized additive models comparing the trajectories across starting infusion rates |
+| `04_infusion_rate_histogram` | Histograms of the starting infusion rate for each drug |
+| `05_table_one.R` | Baseline characteristics table |
 
 ---
 ## Requirements
@@ -86,7 +88,7 @@ SQL scripts to extract the study population, hemodynamic measurements, and covar
 3. R
     - R (version 4.4 or higher recommended).
 4. R Packages
-    - `tidyverse`, `mgcv`, `tableone`, and the additional packages listed at the top of each script.
+    - `tidyverse` (including `dplyr` and `tidyr`), `mgcv`, `tableone`, `ggrepel`, and, for the bootstrap scripts, `furrr`, `future`, and `progressr`.
 
 ---
 ## Usage
@@ -95,8 +97,9 @@ The scripts read their input from a `data` directory and write their figures and
 
 ### SQL Queries
 1. Navigate to the `sql` directory.
-2. Run the scripts in the order given by their numbering, saving the result of each script as a table. Later scripts refer to the tables created by earlier ones.
+2. Run the scripts in the order given by their numbering, saving the result of each script as a table **named after the script itself** (for example, `03_vasoactive_drug_rate.sql` is saved as the table `03_vasoactive_drug_rate`). Later scripts refer to these tables by that name.
   - Ensure that you have access to the OneICU database and that your [BigQuery billing project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) is configured correctly.
+  - The dataset name in the `from` clauses (`medicu-production.research_vasoactive_drugs_short_term_responses_2025`) must be replaced with your own project and dataset.
 3. Export the resulting tables as CSV files into your local `data` directory.
 
 ### Python Scripts
@@ -114,6 +117,7 @@ The scripts read their input from a `data` directory and write their figures and
   ```
 4. Set `data_dir`, `output_dir`, and the data version at the top of each script.
 5. Run the scripts to fit the models and generate the figures and tables.
+  - The bootstrap scripts run in parallel and are set to 32 workers by default. Adjust `plan(multisession, workers = 32)` to the number of cores available on your machine.
 
 ---
 ## Contact
