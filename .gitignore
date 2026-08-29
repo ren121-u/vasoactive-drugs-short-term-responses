@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------
+# 個票データ・中間データは公開リポジトリに絶対に入れない
+# （一度コミットすると、後で削除しても履歴から復元できてしまう）
+# ---------------------------------------------------------------
+data/
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.rds
+*.RData
+.RData
+.RDataTmp
+
+# 解析の出力（図表）
+output/
+*.png
+*.pdf
+*.svg
+*.jpg
+*.jpeg
+
+# 認証情報
+*.json.key
+*credentials*
+*service-account*
+.env
+.envrc
+
+# R
+.Rhistory
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+*.DS_Store
+Thumbs.db
