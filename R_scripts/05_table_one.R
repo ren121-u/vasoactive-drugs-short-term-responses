@@ -164,7 +164,7 @@ table_df <- table_df %>%
                   labels = c("Dobutamine", "Dopamine", "Norepinephrine")),
 
     # Categorical variables
-    # Because only Male is reported for sex and only Yes for mv / rrt,
+    # Only Male is reported for sex and only Yes for mv / rrt,
     # Place the level to be reported as the first level of the factor
     sex = factor(female, levels = c(0,1), labels = c("Male","Female")),
     mv  = factor(on_vent, levels = c(1,0), labels = c("Yes","No")),
@@ -290,8 +290,8 @@ label_map <- c(
   "rrt" = "Renal replacement therapy, n (%)"
 )
 
-# the suffixes " (median [IQR])", " (%)" and " = <level>" that tableone adds automatically are
-# they are stripped to recover the original variable names.
+# the suffixes " (median [IQR])", " (%)" and " = <level>" that tableone adds automatically
+# are stripped to recover the original variable names.
 strip_suffix <- function(x) {
   x <- sub(" \\(median \\[IQR\\]\\)$", "", x)
   x <- sub(" \\(%\\)$", "", x)

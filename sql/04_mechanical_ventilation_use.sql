@@ -1,5 +1,5 @@
 with
-    -- Whether mechanical ventilation is used. on_vent denotes current use and past_vent denotes past use. 0 = not used, 1 = used
+    -- Whether mechanical ventilation is used. on_vent denotes current use. 0 = not used, 1 = used
     mv_use_table as (
         select
             icu_stay_id,
